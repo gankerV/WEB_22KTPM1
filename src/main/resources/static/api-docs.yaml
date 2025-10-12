@@ -1,0 +1,279 @@
+openapi: 3.1.0
+info:
+  title: APIDemo - Actor & Film API
+  version: 1.0.0
+  description: |
+    CRUD cho Actor và Film. Các endpoint được prefix bằng /api theo controller.
+servers:
+  - url: http://localhost:8081
+    description: Local
+
+tags:
+  - name: Actors
+    description: Quản lý diễn viên
+  - name: Films
+    description: Quản lý phim
+
+paths:
+  /api/actors:
+    get:
+      tags: [Actors]
+      summary: Danh sách diễn viên
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Actor' }
+    post:
+      tags: [Actors]
+      summary: Tạo diễn viên
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ActorInput' }
+            examples:
+              sample:
+                value: { firstName: "Tom", lastName: "Hanks" }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Actor' }
+
+  /api/actors/{id}:
+    get:
+      tags: [Actors]
+      summary: Lấy diễn viên theo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Actor' }
+        '400':
+          description: Bad Request (controller hiện trả 400 khi không tìm thấy)
+    put:
+      tags: [Actors]
+      summary: Cập nhật diễn viên theo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ActorInput' }
+            examples:
+              sample:
+                value: { firstName: "Thomas", lastName: "Hanks" }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Actor' }
+        '400':
+          description: Bad Request
+    delete:
+      tags: [Actors]
+      summary: Xóa diễn viên theo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        '200':
+          description: OK (đã xóa)
+        '400':
+          description: Bad Request (không xóa được)
+
+  /api/films:
+    get:
+      tags: [Films]
+      summary: Danh sách phim
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Film' }
+    post:
+      tags: [Films]
+      summary: Tạo phim
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/FilmInput' }
+            examples:
+              sample:
+                value:
+                  title: "Forrest Gump"
+                  description: "Life is like a box of chocolates…"
+                  releaseYear: 1994
+                  languageId: 1
+                  originalLanguageId: 1
+                  rentalDuration: 7
+                  rentalRate: 2.99
+                  length: 142
+                  replacementCost: 19.99
+                  rating: "PG-13"
+                  specialFeatures: "Trailers,Behind the Scenes"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Film' }
+
+  /api/films/{id}:
+    get:
+      tags: [Films]
+      summary: Lấy phim theo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Film' }
+        '404':
+          description: Not Found
+    put:
+      tags: [Films]
+      summary: Cập nhật phim theo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/FilmInput' }
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Film' }
+        '400':
+          description: Bad Request
+    delete:
+      tags: [Films]
+      summary: Xóa phim theo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer, format: int64 }
+      responses:
+        '200':
+          description: OK (đã xóa)
+        '400':
+          description: Bad Request
+
+components:
+  schemas:
+    # ===== Actor =====
+    Actor:
+      type: object
+      properties:
+        id: { type: integer, format: int64, example: 123 }
+        firstName: { type: string, example: "Tom" }
+        lastName:  { type: string, example: "Hanks" }
+      required: [id, firstName, lastName]
+
+    ActorInput:
+      type: object
+      properties:
+        firstName: { type: string }
+        lastName:  { type: string }
+      required: [firstName, lastName]
+
+    # ===== Language =====
+    Language:
+      type: object
+      properties:
+        id: { type: integer, format: int32, example: 1 }
+        name: { type: string, example: "English" }
+        lastUpdate:
+          type: string
+          format: date-time
+          example: "2025-10-12T12:34:56"
+      required: [id, name, lastUpdate]
+
+    # ===== Film =====
+    Film:
+      type: object
+      properties:
+        id: { type: integer, format: int32, example: 10 }
+        title: { type: string, example: "Forrest Gump" }
+        description: { type: string, nullable: true }
+        releaseYear: { type: integer, format: int32, nullable: true, example: 1994 }
+        language: { $ref: '#/components/schemas/Language' }
+        originalLanguage:
+          allOf:
+            - $ref: '#/components/schemas/Language'
+          nullable: true
+        rentalDuration: { type: integer, format: int32, example: 7 }
+        rentalRate: { type: number, example: 2.99 }
+        length: { type: integer, format: int32, nullable: true, example: 142 }
+        replacementCost: { type: number, example: 19.99 }
+        rating: { type: string, nullable: true, example: "PG-13" }
+        specialFeatures: { type: string, nullable: true, example: "Trailers,Behind the Scenes" }
+        lastUpdate:
+          type: string
+          format: date-time
+          example: "2025-10-12T12:34:56"
+      required:
+        - id
+        - title
+        - language
+        - rentalDuration
+        - rentalRate
+        - replacementCost
+        - lastUpdate
+
+    # Đề xuất request body cho Film (dùng ID ngôn ngữ thay vì object)
+    FilmInput:
+      type: object
+      properties:
+        title: { type: string }
+        description: { type: string, nullable: true }
+        releaseYear: { type: integer, format: int32, nullable: true }
+        languageId: { type: integer, format: int32 }
+        originalLanguageId: { type: integer, format: int32, nullable: true }
+        rentalDuration: { type: integer, format: int32 }
+        rentalRate: { type: number }
+        length: { type: integer, format: int32, nullable: true }
+        replacementCost: { type: number }
+        rating: { type: string, nullable: true }
+        specialFeatures: { type: string, nullable: true }
+        # lastUpdate nên do server gán
+      required:
+        - title
+        - languageId
+        - rentalDuration
+        - rentalRate
+        - replacementCost
