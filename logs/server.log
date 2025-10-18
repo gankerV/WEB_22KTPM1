@@ -1,0 +1,91 @@
+{"timestamp":"2025-10-18T17:24:13.451+0700", "level":"INFO", "thread":"main", "logger":"com.example.APIDemo.ApiDemoApplication", "message":"Starting ApiDemoApplication using Java 21.0.8 with PID 54763 (/home/xanh-nguyen1/Downloads/APIDemo/target/classes started by xanh-nguyen1 in /home/xanh-nguyen1/Downloads/APIDemo)"}
+{"timestamp":"2025-10-18T17:24:13.453+0700", "level":"INFO", "thread":"main", "logger":"com.example.APIDemo.ApiDemoApplication", "message":"No active profile set, falling back to 1 default profile: "default""}
+{"timestamp":"2025-10-18T17:24:13.882+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.data.repository.config.RepositoryConfigurationDelegate", "message":"Bootstrapping Spring Data JPA repositories in DEFAULT mode."}
+{"timestamp":"2025-10-18T17:24:13.943+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.data.repository.config.RepositoryConfigurationDelegate", "message":"Finished Spring Data repository scanning in 56 ms. Found 3 JPA repository interfaces."}
+{"timestamp":"2025-10-18T17:24:14.312+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.boot.web.embedded.tomcat.TomcatWebServer", "message":"Tomcat initialized with port 8081 (http)"}
+{"timestamp":"2025-10-18T17:24:14.319+0700", "level":"INFO", "thread":"main", "logger":"org.apache.coyote.http11.Http11NioProtocol", "message":"Initializing ProtocolHandler ["http-nio-8081"]"}
+{"timestamp":"2025-10-18T17:24:14.321+0700", "level":"INFO", "thread":"main", "logger":"org.apache.catalina.core.StandardService", "message":"Starting service [Tomcat]"}
+{"timestamp":"2025-10-18T17:24:14.321+0700", "level":"INFO", "thread":"main", "logger":"org.apache.catalina.core.StandardEngine", "message":"Starting Servlet engine: [Apache Tomcat/10.1.46]"}
+{"timestamp":"2025-10-18T17:24:14.353+0700", "level":"INFO", "thread":"main", "logger":"org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]", "message":"Initializing Spring embedded WebApplicationContext"}
+{"timestamp":"2025-10-18T17:24:14.354+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext", "message":"Root WebApplicationContext: initialization completed in 872 ms"}
+{"timestamp":"2025-10-18T17:24:14.729+0700", "level":"INFO", "thread":"main", "logger":"org.hibernate.jpa.internal.util.LogHelper", "message":"HHH000204: Processing PersistenceUnitInfo [name: default]"}
+{"timestamp":"2025-10-18T17:24:14.750+0700", "level":"INFO", "thread":"main", "logger":"org.hibernate.Version", "message":"HHH000412: Hibernate ORM core version 6.6.29.Final"}
+{"timestamp":"2025-10-18T17:24:14.765+0700", "level":"INFO", "thread":"main", "logger":"org.hibernate.cache.internal.RegionFactoryInitiator", "message":"HHH000026: Second-level cache disabled"}
+{"timestamp":"2025-10-18T17:24:14.925+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo", "message":"No LoadTimeWeaver setup: ignoring JPA class transformer"}
+{"timestamp":"2025-10-18T17:24:14.948+0700", "level":"INFO", "thread":"main", "logger":"com.zaxxer.hikari.HikariDataSource", "message":"HikariPool-1 - Starting..."}
+{"timestamp":"2025-10-18T17:24:15.130+0700", "level":"INFO", "thread":"main", "logger":"com.zaxxer.hikari.pool.HikariPool", "message":"HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4c78e00c"}
+{"timestamp":"2025-10-18T17:24:15.131+0700", "level":"INFO", "thread":"main", "logger":"com.zaxxer.hikari.HikariDataSource", "message":"HikariPool-1 - Start completed."}
+{"timestamp":"2025-10-18T17:24:15.166+0700", "level":"INFO", "thread":"main", "logger":"org.hibernate.orm.connections.pooling", "message":"HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.43
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown"}
+{"timestamp":"2025-10-18T17:24:15.519+0700", "level":"INFO", "thread":"main", "logger":"org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator", "message":"HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)"}
+{"timestamp":"2025-10-18T17:24:15.520+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean", "message":"Initialized JPA EntityManagerFactory for persistence unit 'default'"}
+{"timestamp":"2025-10-18T17:24:15.705+0700", "level":"WARN", "thread":"main", "logger":"org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration", "message":"spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning"}
+{"timestamp":"2025-10-18T17:24:15.722+0700", "level":"WARN", "thread":"main", "logger":"org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration", "message":"
+
+Using generated security password: 6703ab54-7098-487f-90a2-084c29154547
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+"}
+{"timestamp":"2025-10-18T17:24:15.725+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer", "message":"Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager"}
+{"timestamp":"2025-10-18T17:24:15.859+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean", "message":"Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath."}
+{"timestamp":"2025-10-18T17:24:16.017+0700", "level":"INFO", "thread":"main", "logger":"org.apache.coyote.http11.Http11NioProtocol", "message":"Starting ProtocolHandler ["http-nio-8081"]"}
+{"timestamp":"2025-10-18T17:24:16.023+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.boot.web.embedded.tomcat.TomcatWebServer", "message":"Tomcat started on port 8081 (http) with context path '/'"}
+{"timestamp":"2025-10-18T17:24:16.028+0700", "level":"INFO", "thread":"main", "logger":"com.example.APIDemo.ApiDemoApplication", "message":"Started ApiDemoApplication in 2.968 seconds (process running for 3.233)"}
+{"timestamp":"2025-10-18T17:24:47.996+0700", "level":"INFO", "thread":"SpringApplicationShutdownHook", "logger":"org.springframework.boot.web.embedded.tomcat.GracefulShutdown", "message":"Commencing graceful shutdown. Waiting for active requests to complete"}
+{"timestamp":"2025-10-18T17:24:47.998+0700", "level":"INFO", "thread":"tomcat-shutdown", "logger":"org.springframework.boot.web.embedded.tomcat.GracefulShutdown", "message":"Graceful shutdown complete"}
+{"timestamp":"2025-10-18T17:24:50.022+0700", "level":"INFO", "thread":"SpringApplicationShutdownHook", "logger":"org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean", "message":"Closing JPA EntityManagerFactory for persistence unit 'default'"}
+{"timestamp":"2025-10-18T17:24:50.024+0700", "level":"INFO", "thread":"SpringApplicationShutdownHook", "logger":"com.zaxxer.hikari.HikariDataSource", "message":"HikariPool-1 - Shutdown initiated..."}
+{"timestamp":"2025-10-18T17:24:50.028+0700", "level":"INFO", "thread":"SpringApplicationShutdownHook", "logger":"com.zaxxer.hikari.HikariDataSource", "message":"HikariPool-1 - Shutdown completed."}
+{"timestamp":"2025-10-18T17:35:55.047+0700", "level":"INFO", "thread":"main", "logger":"com.example.APIDemo.ApiDemoApplication", "message":"Starting ApiDemoApplication using Java 21.0.8 with PID 58424 (/home/xanh-nguyen1/Downloads/APIDemo/target/classes started by xanh-nguyen1 in /home/xanh-nguyen1/Downloads/APIDemo)"}
+{"timestamp":"2025-10-18T17:35:55.048+0700", "level":"INFO", "thread":"main", "logger":"com.example.APIDemo.ApiDemoApplication", "message":"No active profile set, falling back to 1 default profile: "default""}
+{"timestamp":"2025-10-18T17:35:55.474+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.data.repository.config.RepositoryConfigurationDelegate", "message":"Bootstrapping Spring Data JPA repositories in DEFAULT mode."}
+{"timestamp":"2025-10-18T17:35:55.530+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.data.repository.config.RepositoryConfigurationDelegate", "message":"Finished Spring Data repository scanning in 51 ms. Found 3 JPA repository interfaces."}
+{"timestamp":"2025-10-18T17:35:55.793+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.boot.web.embedded.tomcat.TomcatWebServer", "message":"Tomcat initialized with port 8081 (http)"}
+{"timestamp":"2025-10-18T17:35:55.799+0700", "level":"INFO", "thread":"main", "logger":"org.apache.coyote.http11.Http11NioProtocol", "message":"Initializing ProtocolHandler ["http-nio-8081"]"}
+{"timestamp":"2025-10-18T17:35:55.800+0700", "level":"INFO", "thread":"main", "logger":"org.apache.catalina.core.StandardService", "message":"Starting service [Tomcat]"}
+{"timestamp":"2025-10-18T17:35:55.800+0700", "level":"INFO", "thread":"main", "logger":"org.apache.catalina.core.StandardEngine", "message":"Starting Servlet engine: [Apache Tomcat/10.1.46]"}
+{"timestamp":"2025-10-18T17:35:55.826+0700", "level":"INFO", "thread":"main", "logger":"org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]", "message":"Initializing Spring embedded WebApplicationContext"}
+{"timestamp":"2025-10-18T17:35:55.827+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext", "message":"Root WebApplicationContext: initialization completed in 757 ms"}
+{"timestamp":"2025-10-18T17:35:56.188+0700", "level":"INFO", "thread":"main", "logger":"org.hibernate.jpa.internal.util.LogHelper", "message":"HHH000204: Processing PersistenceUnitInfo [name: default]"}
+{"timestamp":"2025-10-18T17:35:56.211+0700", "level":"INFO", "thread":"main", "logger":"org.hibernate.Version", "message":"HHH000412: Hibernate ORM core version 6.6.29.Final"}
+{"timestamp":"2025-10-18T17:35:56.226+0700", "level":"INFO", "thread":"main", "logger":"org.hibernate.cache.internal.RegionFactoryInitiator", "message":"HHH000026: Second-level cache disabled"}
+{"timestamp":"2025-10-18T17:35:56.363+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo", "message":"No LoadTimeWeaver setup: ignoring JPA class transformer"}
+{"timestamp":"2025-10-18T17:35:56.378+0700", "level":"INFO", "thread":"main", "logger":"com.zaxxer.hikari.HikariDataSource", "message":"HikariPool-1 - Starting..."}
+{"timestamp":"2025-10-18T17:35:56.540+0700", "level":"INFO", "thread":"main", "logger":"com.zaxxer.hikari.pool.HikariPool", "message":"HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@f60c14e"}
+{"timestamp":"2025-10-18T17:35:56.541+0700", "level":"INFO", "thread":"main", "logger":"com.zaxxer.hikari.HikariDataSource", "message":"HikariPool-1 - Start completed."}
+{"timestamp":"2025-10-18T17:35:56.582+0700", "level":"INFO", "thread":"main", "logger":"org.hibernate.orm.connections.pooling", "message":"HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0.43
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown"}
+{"timestamp":"2025-10-18T17:35:56.980+0700", "level":"INFO", "thread":"main", "logger":"org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator", "message":"HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)"}
+{"timestamp":"2025-10-18T17:35:56.982+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean", "message":"Initialized JPA EntityManagerFactory for persistence unit 'default'"}
+{"timestamp":"2025-10-18T17:35:57.146+0700", "level":"WARN", "thread":"main", "logger":"org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration", "message":"spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning"}
+{"timestamp":"2025-10-18T17:35:57.161+0700", "level":"WARN", "thread":"main", "logger":"org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration", "message":"
+
+Using generated security password: 78f2f653-a6f2-4a41-ab85-74b573897aed
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+"}
+{"timestamp":"2025-10-18T17:35:57.165+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer", "message":"Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager"}
+{"timestamp":"2025-10-18T17:35:57.282+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean", "message":"Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath."}
+{"timestamp":"2025-10-18T17:35:57.418+0700", "level":"INFO", "thread":"main", "logger":"org.apache.coyote.http11.Http11NioProtocol", "message":"Starting ProtocolHandler ["http-nio-8081"]"}
+{"timestamp":"2025-10-18T17:35:57.423+0700", "level":"INFO", "thread":"main", "logger":"org.springframework.boot.web.embedded.tomcat.TomcatWebServer", "message":"Tomcat started on port 8081 (http) with context path '/'"}
+{"timestamp":"2025-10-18T17:35:57.429+0700", "level":"INFO", "thread":"main", "logger":"com.example.APIDemo.ApiDemoApplication", "message":"Started ApiDemoApplication in 2.724 seconds (process running for 2.967)"}
+{"timestamp":"2025-10-18T17:36:12.055+0700", "level":"INFO", "thread":"http-nio-8081-exec-1", "logger":"org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]", "message":"Initializing Spring DispatcherServlet 'dispatcherServlet'"}
+{"timestamp":"2025-10-18T17:36:12.055+0700", "level":"INFO", "thread":"http-nio-8081-exec-1", "logger":"org.springframework.web.servlet.DispatcherServlet", "message":"Initializing Servlet 'dispatcherServlet'"}
+{"timestamp":"2025-10-18T17:36:12.056+0700", "level":"INFO", "thread":"http-nio-8081-exec-1", "logger":"org.springframework.web.servlet.DispatcherServlet", "message":"Completed initialization in 1 ms"}
+{"timestamp":"2025-10-18T17:36:41.096+0700", "level":"INFO", "thread":"SpringApplicationShutdownHook", "logger":"org.springframework.boot.web.embedded.tomcat.GracefulShutdown", "message":"Commencing graceful shutdown. Waiting for active requests to complete"}
+{"timestamp":"2025-10-18T17:36:41.098+0700", "level":"INFO", "thread":"tomcat-shutdown", "logger":"org.springframework.boot.web.embedded.tomcat.GracefulShutdown", "message":"Graceful shutdown complete"}
+{"timestamp":"2025-10-18T17:36:43.117+0700", "level":"INFO", "thread":"SpringApplicationShutdownHook", "logger":"org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean", "message":"Closing JPA EntityManagerFactory for persistence unit 'default'"}
+{"timestamp":"2025-10-18T17:36:43.119+0700", "level":"INFO", "thread":"SpringApplicationShutdownHook", "logger":"com.zaxxer.hikari.HikariDataSource", "message":"HikariPool-1 - Shutdown initiated..."}
+{"timestamp":"2025-10-18T17:36:43.122+0700", "level":"INFO", "thread":"SpringApplicationShutdownHook", "logger":"com.zaxxer.hikari.HikariDataSource", "message":"HikariPool-1 - Shutdown completed."}
