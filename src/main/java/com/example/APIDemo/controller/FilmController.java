@@ -2,14 +2,14 @@ package com.example.APIDemo.controller;
 
 import com.example.APIDemo.dto.FilmRequest;
 import com.example.APIDemo.dto.FilmResponse;
+import com.example.APIDemo.exception.BusinessException;
+import com.example.APIDemo.exception.NotFoundException;
 import com.example.APIDemo.service.IFilmService;
-import jakarta.validation.Valid;
 import org.springframework.http.*;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -22,69 +22,72 @@ public class FilmController {
     }
 
     @GetMapping("/films")
-    public ResponseEntity<List<FilmResponse>> getAllFilms() {
-        return ResponseEntity.ok(filmService.getAllFilms());
+    public ResponseEntity<?> getAllFilms() {
+        try {
+            List<FilmResponse> films = filmService.getAllFilms();
+            return ResponseEntity.ok(films);
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(simpleError(500, "Internal Server Error"));
+        }
     }
 
     @GetMapping("/films/{id}")
     public ResponseEntity<?> getFilmById(@PathVariable Long id) {
-        if (id == null || id < 1) return badRequest("id", "id phải là số dương");
-        FilmResponse res = filmService.getFilmById(id);
-        if (res == null) return notFound("Không tìm thấy film id=" + id);
-        return ResponseEntity.ok(res);
+        try {
+            FilmResponse res = filmService.getFilmById(id);
+            return ResponseEntity.ok(res);
+        } catch (NotFoundException nfe) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(simpleError(404, "Not found"));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(simpleError(500, "Internal Server Error"));
+        }
     }
 
     @PostMapping("/films")
-    public ResponseEntity<?> createFilm(@Valid @RequestBody FilmRequest req, BindingResult br) {
-        if (br.hasErrors()) return badRequest(br);
-        return ResponseEntity.status(HttpStatus.CREATED).body(filmService.createFilm(req));
+    public ResponseEntity<?> createFilm(@RequestBody FilmRequest req) {
+        try {
+            FilmResponse created = filmService.createFilm(req);
+            return ResponseEntity.status(HttpStatus.CREATED).body(created);
+        } catch (BusinessException be) {
+            return ResponseEntity.badRequest().body(simpleError(400, "Invalid request"));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(simpleError(500, "Internal Server Error"));
+        }
     }
 
     @PutMapping("/films/{id}")
-    public ResponseEntity<?> updateFilm(@PathVariable Long id,
-                                        @Valid @RequestBody FilmRequest req,
-                                        BindingResult br) {
-        if (br.hasErrors()) return badRequest(br);
-        if (id == null || id < 1) return badRequest("id", "id phải là số dương");
-        FilmResponse updated = filmService.updateFilm(id, req);
-        if (updated == null) return notFound("Không tìm thấy film id=" + id);
-        return ResponseEntity.ok(updated);
+    public ResponseEntity<?> updateFilm(@PathVariable Long id, @RequestBody FilmRequest req) {
+        try {
+            FilmResponse updated = filmService.updateFilm(id, req);
+            return ResponseEntity.ok(updated);
+        } catch (NotFoundException nfe) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(simpleError(404, "Not found"));
+        } catch (BusinessException be) {
+            return ResponseEntity.badRequest().body(simpleError(400, "Invalid request"));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(simpleError(500, "Internal Server Error"));
+        }
     }
 
     @DeleteMapping("/films/{id}")
     public ResponseEntity<?> deleteFilm(@PathVariable Long id) {
-        if (id == null || id < 1) return badRequest("id", "id phải là số dương");
-        boolean ok = filmService.deleteFilm(id);
-        if (!ok) return notFound("Không tìm thấy film id=" + id + " hoặc không xóa được");
-        return ResponseEntity.noContent().build();
+        try {
+            filmService.deleteFilm(id);
+            return ResponseEntity.ok().build();
+        } catch (NotFoundException nfe) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(simpleError(404, "Not found"));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(simpleError(500, "Internal Server Error"));
+        }
     }
 
-    private ResponseEntity<Map<String, Object>> badRequest(BindingResult br) {
-        var details = br.getFieldErrors().stream()
-                .map(e -> Map.of("field", e.getField(), "message", e.getDefaultMessage()))
-                .collect(Collectors.toList());
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("status", 400);
-        body.put("error", "Bad Request");
-        body.put("message", "Dữ liệu không hợp lệ");
-        body.put("details", details);
-        return ResponseEntity.badRequest().body(body);
-    }
-
-    private ResponseEntity<Map<String, Object>> badRequest(String field, String message) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("status", 400);
-        body.put("error", "Bad Request");
-        body.put("message", "Dữ liệu không hợp lệ");
-        body.put("details", List.of(Map.of("field", field, "message", message)));
-        return ResponseEntity.badRequest().body(body);
-    }
-
-    private ResponseEntity<Map<String, Object>> notFound(String message) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("status", 404);
-        body.put("error", "Not Found");
-        body.put("message", message);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+    private static Map<String, Object> simpleError(int status, String message) {
+        return Map.of("status", status, "message", message);
     }
 }

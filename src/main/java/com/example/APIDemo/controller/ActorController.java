@@ -2,14 +2,14 @@ package com.example.APIDemo.controller;
 
 import com.example.APIDemo.dto.ActorRequest;
 import com.example.APIDemo.dto.ActorResponse;
+import com.example.APIDemo.exception.BusinessException;
+import com.example.APIDemo.exception.NotFoundException;
 import com.example.APIDemo.service.IActorService;
-import jakarta.validation.Valid;
 import org.springframework.http.*;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -22,58 +22,72 @@ public class ActorController {
     }
 
     @GetMapping("/actors")
-    public ResponseEntity<List<ActorResponse>> getAllActors() {
-        return ResponseEntity.ok(actorService.getAllActors());
+    public ResponseEntity<?> getAllActors() {
+        try {
+            List<ActorResponse> actors = actorService.getAllActors();
+            return ResponseEntity.ok(actors);
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(simpleError(500, "Internal Server Error"));
+        }
     }
 
     @GetMapping("/actors/{id}")
     public ResponseEntity<?> getActorById(@PathVariable Long id) {
-        ActorResponse res = actorService.getActorById(id);
-        if (res == null) return basicNotFound("Actor id=" + id + " không tồn tại");
-        return ResponseEntity.ok(res);
+        try {
+            ActorResponse res = actorService.getActorById(id);
+            return ResponseEntity.ok(res);
+        } catch (NotFoundException nfe) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(simpleError(404, "Not found"));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(simpleError(500, "Internal Server Error"));
+        }
     }
 
     @PostMapping("/actors")
-    public ResponseEntity<?> createActor(@Valid @RequestBody ActorRequest req, BindingResult br) {
-        if (br.hasErrors()) return basicBadRequest(br);
-        ActorResponse created = actorService.createActor(req);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    public ResponseEntity<?> createActor(@RequestBody ActorRequest req) {
+        try {
+            ActorResponse created = actorService.createActor(req);
+            return ResponseEntity.status(HttpStatus.CREATED).body(created);
+        } catch (BusinessException be) {
+            return ResponseEntity.badRequest().body(simpleError(400, "Invalid request"));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(simpleError(500, "Internal Server Error"));
+        }
     }
 
     @PutMapping("/actors/{id}")
-    public ResponseEntity<?> updateActor(@PathVariable Long id,
-                                         @Valid @RequestBody ActorRequest req,
-                                         BindingResult br) {
-        if (br.hasErrors()) return basicBadRequest(br);
-        ActorResponse updated = actorService.updateActor(id, req);
-        if (updated == null) return basicNotFound("Actor id=" + id + " không tồn tại");
-        return ResponseEntity.ok(updated);
+    public ResponseEntity<?> updateActor(@PathVariable Long id, @RequestBody ActorRequest req) {
+        try {
+            ActorResponse updated = actorService.updateActor(id, req);
+            return ResponseEntity.ok(updated);
+        } catch (NotFoundException nfe) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(simpleError(404, "Not found"));
+        } catch (BusinessException be) {
+            return ResponseEntity.badRequest().body(simpleError(400, "Invalid request"));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(simpleError(500, "Internal Server Error"));
+        }
     }
 
     @DeleteMapping("/actors/{id}")
     public ResponseEntity<?> deleteActor(@PathVariable Long id) {
-        boolean ok = actorService.deleteActor(id);
-        if (!ok) return basicNotFound("Actor id=" + id + " không tồn tại hoặc không xóa được");
-        return ResponseEntity.ok().build();
+        try {
+            actorService.deleteActor(id);
+            return ResponseEntity.ok().build();
+        } catch (NotFoundException nfe) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(simpleError(404, "Not found"));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(simpleError(500, "Internal Server Error"));
+        }
     }
 
-    private ResponseEntity<Map<String, Object>> basicBadRequest(BindingResult br) {
-        var errors = br.getFieldErrors().stream()
-                .map(e -> Map.of("field", e.getField(), "message", e.getDefaultMessage()))
-                .collect(Collectors.toList());
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("status", 400);
-        body.put("error", "Bad Request");
-        body.put("message", "Dữ liệu không hợp lệ");
-        body.put("details", errors);
-        return ResponseEntity.badRequest().body(body);
-    }
-
-    private ResponseEntity<Map<String, Object>> basicNotFound(String msg) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("status", 404);
-        body.put("error", "Not Found");
-        body.put("message", msg);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+    private static Map<String, Object> simpleError(int status, String message) {
+        return Map.of("status", status, "message", message);
     }
 }
