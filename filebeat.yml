@@ -1,0 +1,16 @@
+filebeat.inputs:
+  - type: filestream
+    enabled: true
+    paths:
+      - /path/APIDemo/logs/server.log
+    json.keys_under_root: true
+    json.add_error_key: true
+
+output.elasticsearch:
+  hosts: ["http://localhost:9200"]
+  username: "elastic"
+  password: "yourpassword"
+
+setup.kibana:
+  host: "http://localhost:5601"
+
